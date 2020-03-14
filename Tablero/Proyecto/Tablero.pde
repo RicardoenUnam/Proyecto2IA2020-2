@@ -251,7 +251,7 @@ class Tablero {
   boolean movimientoPermitido(int posX, int posY){
     boolean permitido = (verificaArriba(posX, posY) || verificaAbajo(posX, posY) 
                         || verificaIzquierda(posX, posY) || verificaDerecha(posX, posY)
-                        || verificaDiagonalDerechaSuperior(posX,posY));
+                        );
     return permitido;
   }
 
