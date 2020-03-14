@@ -36,6 +36,7 @@ void mousePressed() {
   if (!tablero.estaOcupado(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla) && 
           tablero.movimientoPermitido(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla)) {
     tablero.setFicha(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
+    tablero.actualiza(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
     tablero.cambiarTurno();
     println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
          " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");

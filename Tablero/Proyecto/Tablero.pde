@@ -218,6 +218,29 @@ class Tablero {
     }
   }
 
+  // /**
+  //  * @param posX Coordenada horizontal de la casilla a verificar
+  //  * @param posY Coordenada vertical de la casilla a verificar
+  //  * @return true si es una movida valida hacia la izquierda, false en otro caso
+  //  */
+  // boolean verificaDiagonalDerechaSuperior(int posX, int posY){
+  //   try{
+  //     int turnoSiguiente = turno ? 2 : 1; 
+  //     if(mundo[posX-1][posY+1] == turnoSiguiente ){
+  //       for(int i = 2; i < 8; i++){
+  //         int turnoActual = turno ? 1 : 2; 
+  //         if(mundo[posX+i][posY-i] == turnoActual)
+  //           return true; 
+  //       }
+  //       return false;      
+  //     }
+  //     return false;
+  //   }catch(Exception e){
+  //     System.out.println("Izquierda");
+  //     return false;
+  //   }
+  // }
+
   /**
    * Metodo que verifica si el movimiento que quiere hacer el usuario esta permitido
    * segun las reglas del juego
@@ -226,7 +249,9 @@ class Tablero {
    * @return true si es un movimiento permitido, false en otro caso
    */
   boolean movimientoPermitido(int posX, int posY){
-    boolean permitido = (verificaArriba(posX, posY) || verificaAbajo(posX, posY) || verificaIzquierda(posX, posY) || verificaDerecha(posX, posY));
+    boolean permitido = (verificaArriba(posX, posY) || verificaAbajo(posX, posY) 
+                        || verificaIzquierda(posX, posY) || verificaDerecha(posX, posY)
+                        || verificaDiagonalDerechaSuperior(posX,posY));
     return permitido;
   }
 
@@ -245,6 +270,82 @@ class Tablero {
     }
   }
 
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * Metodo que actualiza las fichas superiores segun las reglas de Othello
+   */
+  void actualizaArriba(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      for(int i = 0; i<dimension; i++){
+        if(verificaArriba(posX, posY))
+          mundo[posX][posY-i] = aliadas;
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * Metodo que actualiza las fichas a la izquierda segun las reglas de Othello
+   */
+  void actualizaAbajo(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      for(int i = 0; i<dimension; i++){
+        if(verificaAbajo(posX, posY))
+          mundo[posX][posY+i] = aliadas;
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * Metodo que actualiza las fichas a la derecha segun las reglas de Othello
+   */
+  void actualizaDerecha(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      for(int i = 0; i<dimension; i++){
+        if(verificaDerecha(posX, posY))
+          mundo[posX+i][posY] = aliadas;
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * Metodo que actualiza las fichas a la izquierda segun las reglas de Othello
+   */
+  void actualizaIzquierda(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      for(int i = 0; i<dimension; i++){
+        if(verificaIzquierda(posX, posY))
+          mundo[posX-i][posY] = aliadas;
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+
+  void actualiza(int posX, int posY){
+      actualizaArriba(posX, posY);
+      actualizaAbajo(posX, posY);
+      actualizaIzquierda(posX, posY);
+      actualizaDerecha(posX,posY);
+  }
+
+  
 
   /**
    * Cuenta la cantidad de fichas de un jugador
