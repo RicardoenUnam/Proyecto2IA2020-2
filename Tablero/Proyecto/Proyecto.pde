@@ -25,6 +25,7 @@ void setup() {
  */
 void draw() {
   tablero.display();
+  tablero.movimientosPosibles();
 }
 
 /**
@@ -39,11 +40,4 @@ void mousePressed() {
     println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
          " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
   }
-}
-
-/**
- * Metodo que indica las casillas donde hay movimientos posibles
- */
-void movimientosPosibles(){
-  
 }

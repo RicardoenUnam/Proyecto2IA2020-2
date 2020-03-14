@@ -231,6 +231,22 @@ class Tablero {
   }
 
   /**
+   * Metodo que indica las casillas donde hay movimientos posibles
+   */
+  void movimientosPosibles(){
+    for(int i = 0; i<dimension; i++){
+      for(int j = 0; j<dimension; j++){
+        if(movimientoPermitido(i,j) && !estaOcupado(i,j)){
+          stroke(120);
+          noFill();
+          rect(i*tamCasilla, j*tamCasilla, tamCasilla, tamCasilla);
+        }
+      }
+    }
+  }
+
+
+  /**
    * Cuenta la cantidad de fichas de un jugador
    * @return La cantidad de fichas de ambos jugadores en el tablero como vector, 
    * donde x = jugador1, y = jugador2
