@@ -23,8 +23,8 @@ class Tablero {
 
   /**
    * Representa de quién es el turno bajo la siguiente convención:
-   * true = turno del jugador 1
-   * false = turno del jugador 2
+   * true = turno del jugador 1 (Negras)
+   * false = turno del jugador 2 (Blancas)
    */
   boolean turno;
   
@@ -63,11 +63,11 @@ class Tablero {
    * Dibuja en pantalla el tablero, es decir, dibuja las casillas y las fichas de los jugadores
    */
   void display() {
-    color fondo = color(200, 0, 200); // El color de fondo del tablero
-    color linea = color(0); // El color de línea del tablero
+    color fondo = color(0, 0, 200); // El color de fondo del tablero
+    color linea = color(0, 0, 254); // El color de línea del tablero
     int grosor = 2; // Ancho de línea (en pixeles)
-    color jugador1 = color(0); // Color de ficha para el primer jugador
-    color jugador2 = color(255); // Color de ficha para el segundo jugador
+    color colorJugador1 = color(0); // Color de ficha para el primer jugador
+    color colorJugador2 = color(255); // Color de ficha para el segundo jugador
     
     // Doble iteración para recorrer cada casilla del tablero
     for (int i = 0; i < dimension; i++)
@@ -76,11 +76,11 @@ class Tablero {
         fill(fondo); // establecer color de fondo
         stroke(linea); // establecer color de línea
         strokeWeight(grosor); // establecer ancho de línea
-        rect(i*tamCasilla, j*tamCasilla, tamCasilla, tamCasilla);
+        rect(i*tamCasilla, j*tamCasilla, tamCasilla, tamCasilla); //Dibuja rectangulos
 
         // Dibujar las fichas de los jugadores:
         if (mundo[i][j] != 0 && (mundo[i][j] == 1 || mundo[i][j] == 2)) { // en caso de que la casilla no esté vacia
-          fill(mundo[i][j] == 1 ? jugador1 : jugador2); // establecer el color de la ficha
+          fill(mundo[i][j] == 1 ? colorJugador1 : colorJugador2); // establecer el color de la ficha
           noStroke(); // quitar contorno de línea
           ellipse(i*tamCasilla+(tamCasilla/2), j*tamCasilla+(tamCasilla/2), tamCasilla*3/5, tamCasilla*3/5);
         }
@@ -109,6 +109,7 @@ class Tablero {
 
   /**
    * Representa el cambio de turno. Normalmente representa la última acción del turno
+   * Recordemos que true es jugador uno y false jugador dos
    */
   void cambiarTurno() {
     turno = !turno;
@@ -119,99 +120,114 @@ class Tablero {
    * Verifica si en la posición de una casilla dada existe una ficha (sin importar su color)
    * @param posX Coordenada horizontal de la casilla a verificar
    * @param posY Coordenada vertical de la casilla a verificar
-   * @return True si hay una ficha de cualquier color en la casilla, false en otro caso
+   * @return true si hay una ficha de cualquier color en la casilla, false en otro caso
    */
   boolean estaOcupado(int posX, int posY) {
     return mundo[posX][posY] != 0;
   }
   
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * @return true si es una movida valida hacia arriba, false en otro caso
+   */
   boolean verificaArriba(int posX, int posY){
     try{
-      int y = turno ? 2 : 1; 
-      if(mundo[posX][posY-1] == y ){
-          for(int i = 2; i < 8; i++){
-          int x = turno ? 1 : 2; 
-          if(mundo[posX][posY-i] == x)
-           return true; 
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX][posY-1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX][posY-i] == turnoActual)
+            return true; 
         }
         return false;      
-      }else{
-        return false;
       }
-
-    }
-    catch(Exception e){
+      return false;
+    }catch(Exception e){
       System.out.println("Arriba");
       return false;
     }
   }
-  
-  
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * @return true si es una movida valida hacia abajo, false en otro caso
+   */
   boolean verificaAbajo(int posX, int posY){
     try{
-      int y = turno ? 2 : 1; 
-      if(mundo[posX][posY+1] == y ){
-          for(int i = 2; i < 8; i++){
-          int x = turno ? 1 : 2; 
-          if(mundo[posX][posY+i] == x)
-           return true; 
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX][posY+1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX][posY+i] == turnoActual)
+            return true; 
         }
         return false;      
-      }else{
-        return false;
       }
-
-    }
-    catch(Exception e){
-      System.out.println("Arriba");
+      return false;
+    }catch(Exception e){
+      System.out.println("Abajo");
       return false;
     }
   }
-  
-    boolean verificaIzq(int posX, int posY){
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * @return true si es una movida valida hacia la derecha, false en otro caso
+   */
+  boolean verificaDerecha(int posX, int posY){
     try{
-      int y = turno ? 2 : 1; 
-      if(mundo[posX-1][posY] == y ){
-          for(int i = 2; i < 8; i++){
-          int x = turno ? 1 : 2; 
-          if(mundo[posX-i][posY] == x)
-           return true; 
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX+1][posY] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX+i][posY] == turnoActual)
+            return true; 
         }
         return false;      
-      }else{
-        return false;
       }
-
-    }
-    catch(Exception e){
-      System.out.println("Arriba");
+      return false;
+    }catch(Exception e){
+      System.out.println("Derecha");
       return false;
     }
   }
-  
-  boolean verificaDer(int posX, int posY){
+
+  /**
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * @return true si es una movida valida hacia la izquierda, false en otro caso
+   */
+  boolean verificaIzquierda(int posX, int posY){
     try{
-      int y = turno ? 2 : 1; 
-      if(mundo[posX+1][posY] == y ){
-          for(int i = 2; i < 8; i++){
-          int x = turno ? 1 : 2; 
-          if(mundo[posX+i][posY] == x)
-           return true; 
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX-1][posY] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX-i][posY] == turnoActual)
+            return true; 
         }
         return false;      
-      }else{
-        return false;
       }
-
-    }
-    catch(Exception e){
-      System.out.println("Arriba");
+      return false;
+    }catch(Exception e){
+      System.out.println("Izquierda");
       return false;
     }
   }
-  
-  boolean estaPermitido(int posX, int posY){
-   return verificaArriba(posX, posY) || verificaAbajo(posX, posY) || verificaIzq(posX, posY) || verificaDer(posX, posY);
+
+  /**
+   * Metodo que verifica si el movimiento que quiere hacer el usuario esta permitido
+   * segun las reglas del juego
+   * @param posX Coordenada horizontal de la casilla a verificar
+   * @param posY Coordenada vertical de la casilla a verificar
+   * @return true si es un movimiento permitido, false en otro caso
+   */
+  boolean movimientoPermitido(int posX, int posY){
+    boolean permitido = (verificaArriba(posX, posY) || verificaAbajo(posX, posY) || verificaIzquierda(posX, posY) || verificaDerecha(posX, posY));
+    return permitido;
   }
 
   /**

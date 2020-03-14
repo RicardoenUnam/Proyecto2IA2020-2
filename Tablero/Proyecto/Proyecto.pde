@@ -6,7 +6,7 @@
 Tablero tablero;
 
 /**
- * Método para establecet tamaño de ventana al incluir variables
+ * Método para establecer tamaño de ventana al incluir variables
  */
 void settings() {
   tablero =  new Tablero();
@@ -27,17 +27,23 @@ void draw() {
   tablero.display();
 }
 
-
-
-
 /**
  * Evento para detectar cuando el usuario da clic
  */
 void mousePressed() {
   println("\nClic en la casilla " + "[" + mouseX/tablero.tamCasilla + ", " + mouseY/tablero.tamCasilla + "]");
-  if (!tablero.estaOcupado(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla) && tablero.estaPermitido(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla)) {
+  if (!tablero.estaOcupado(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla) && 
+          tablero.movimientoPermitido(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla)) {
     tablero.setFicha(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
     tablero.cambiarTurno();
-    println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") + " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
+    println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
+         " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
   }
+}
+
+/**
+ * Metodo que indica las casillas donde hay movimientos posibles
+ */
+void movimientosPosibles(){
+  
 }
