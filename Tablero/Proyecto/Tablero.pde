@@ -63,8 +63,8 @@ class Tablero {
    * Dibuja en pantalla el tablero, es decir, dibuja las casillas y las fichas de los jugadores
    */
   void display() {
-    color fondo = color(0, 0, 200); // El color de fondo del tablero
-    color linea = color(0, 0, 254); // El color de línea del tablero
+    color fondo = color(238, 208, 157); // El color de fondo del tablero
+    color linea = color(0, 0, 0); // El color de línea del tablero
     int grosor = 2; // Ancho de línea (en pixeles)
     color colorJugador1 = color(0); // Color de ficha para el primer jugador
     color colorJugador2 = color(255); // Color de ficha para el segundo jugador
@@ -306,30 +306,6 @@ class Tablero {
       return false;
     }
   }
-
-  // /**
-  //  * @param posX Coordenada horizontal de la casilla a verificar
-  //  * @param posY Coordenada vertical de la casilla a verificar
-  //  * @return true si es una movida valida hacia la izquierda, false en otro caso
-  //  */
-  // boolean verificaDiagonalDerechaSuperior(int posX, int posY){
-  //   try{
-  //     int turnoSiguiente = turno ? 2 : 1; 
-  //     if(mundo[posX-1][posY+1] == turnoSiguiente ){
-  //       for(int i = 2; i < 8; i++){
-  //         int turnoActual = turno ? 1 : 2; 
-  //         if(mundo[posX+i][posY-i] == turnoActual)
-  //           return true; 
-  //       }
-  //       return false;      
-  //     }
-  //     return false;
-  //   }catch(Exception e){
-  //     System.out.println("Izquierda");
-  //     return false;
-  //   }
-  // }
-
   /**
    * Metodo que verifica si el movimiento que quiere hacer el usuario esta permitido
    * segun las reglas del juego
@@ -353,9 +329,19 @@ class Tablero {
     for(int i = 0; i<dimension; i++){
       for(int j = 0; j<dimension; j++){
         if(movimientoPermitido(i,j) && !estaOcupado(i,j)){
-          stroke(120);
-          noFill();
-          rect(i*tamCasilla, j*tamCasilla, tamCasilla, tamCasilla);
+          if(turno){
+            stroke(0,0,0);
+            strokeWeight(3);
+            noFill();
+            circle(i*tamCasilla+(tamCasilla/2), j*tamCasilla+(tamCasilla/2), (tamCasilla/2));            
+          }else{
+            stroke(255,255,255);
+            strokeWeight(5);
+            noFill();
+            circle(i*tamCasilla+(tamCasilla/2), j*tamCasilla+(tamCasilla/2), (tamCasilla/2)); 
+          
+          }
+
         }
       }
     }
