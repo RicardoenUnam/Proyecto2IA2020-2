@@ -136,7 +136,9 @@ class Tablero {
       int turnoSiguiente = turno ? 2 : 1; 
       if(mundo[posX][posY-1] == turnoSiguiente ){
         for(int i = 2; i < 8; i++){
-          int turnoActual = turno ? 1 : 2; 
+          int turnoActual = turno ? 1 : 2;
+           if(mundo[posX][posY-i] == 0)
+            return false; 
           if(mundo[posX][posY-i] == turnoActual)
             return true; 
         }
@@ -160,6 +162,8 @@ class Tablero {
       if(mundo[posX][posY+1] == turnoSiguiente ){
         for(int i = 2; i < 8; i++){
           int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX][posY+i] == 0)
+            return false;           
           if(mundo[posX][posY+i] == turnoActual)
             return true; 
         }
@@ -183,7 +187,49 @@ class Tablero {
       if(mundo[posX+1][posY] == turnoSiguiente ){
         for(int i = 2; i < 8; i++){
           int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX+i][posY] == 0)
+            return false; 
           if(mundo[posX+i][posY] == turnoActual)
+            return true; 
+        }
+        return false;      
+      }
+      return false;
+    }catch(Exception e){
+      System.out.println("Derecha");
+      return false;
+    }
+  }
+  
+    boolean verificaDerechaArriba(int posX, int posY){
+    try{
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX+1][posY-1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX+i][posY-i] == 0)
+            return false; 
+          if(mundo[posX+i][posY-i] == turnoActual)
+            return true; 
+        }
+        return false;      
+      }
+      return false;
+    }catch(Exception e){
+      System.out.println("Derecha");
+      return false;
+    }
+  }
+  
+    boolean verificaDerechaAbajo(int posX, int posY){
+    try{
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX+1][posY+1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX+i][posY+i] == 0)
+            return false; 
+          if(mundo[posX+i][posY+i] == turnoActual)
             return true; 
         }
         return false;      
@@ -206,7 +252,50 @@ class Tablero {
       if(mundo[posX-1][posY] == turnoSiguiente ){
         for(int i = 2; i < 8; i++){
           int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX-i][posY] == 0)
+            return false;           
           if(mundo[posX-i][posY] == turnoActual)
+            return true; 
+        }
+        return false;      
+      }
+      return false;
+    }catch(Exception e){
+      System.out.println("Izquierda");
+      return false;
+    }
+  }
+  
+  
+    boolean verificaIzquierdaArriba(int posX, int posY){
+    try{
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX-1][posY-1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+          if(mundo[posX-i][posY-i] == 0)
+            return false;
+          if(mundo[posX-i][posY-i] == turnoActual)
+            return true; 
+        }
+        return false;      
+      }
+      return false;
+    }catch(Exception e){
+      System.out.println("Izquierda");
+      return false;
+    }
+  }
+  
+    boolean verificaIzquierdaAbajo(int posX, int posY){
+    try{
+      int turnoSiguiente = turno ? 2 : 1; 
+      if(mundo[posX-1][posY+1] == turnoSiguiente ){
+        for(int i = 2; i < 8; i++){
+          int turnoActual = turno ? 1 : 2; 
+        if(mundo[posX-i][posY+i] == 0)
+            return false;       
+          if(mundo[posX-i][posY+i] == turnoActual)
             return true; 
         }
         return false;      
@@ -251,6 +340,8 @@ class Tablero {
   boolean movimientoPermitido(int posX, int posY){
     boolean permitido = (verificaArriba(posX, posY) || verificaAbajo(posX, posY) 
                         || verificaIzquierda(posX, posY) || verificaDerecha(posX, posY)
+                        || verificaIzquierdaArriba(posX, posY) || verificaIzquierdaAbajo(posX, posY)
+                        || verificaDerechaArriba(posX, posY) || verificaDerechaAbajo(posX, posY)
                         );
     return permitido;
   }
@@ -278,9 +369,15 @@ class Tablero {
   void actualizaArriba(int posX, int posY){
     int aliadas = turno ? 1 : 2;
     try{
-      for(int i = 0; i<dimension; i++){
-        if(verificaArriba(posX, posY))
-          mundo[posX][posY-i] = aliadas;
+      if(verificaArriba(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX][posY-i] == aliadas){
+            break;
+          }else{
+            mundo[posX][posY-i] = aliadas;
+
+          }
+        }
       }
     }catch(Exception e){
       System.out.println("asd");
@@ -295,9 +392,15 @@ class Tablero {
   void actualizaAbajo(int posX, int posY){
     int aliadas = turno ? 1 : 2;
     try{
-      for(int i = 0; i<dimension; i++){
-        if(verificaAbajo(posX, posY))
-          mundo[posX][posY+i] = aliadas;
+      if(verificaAbajo(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX][posY+i] == aliadas){
+            break;
+          }else{
+            mundo[posX][posY+i] = aliadas;
+
+          }
+        }
       }
     }catch(Exception e){
       System.out.println("asd");
@@ -312,9 +415,15 @@ class Tablero {
   void actualizaDerecha(int posX, int posY){
     int aliadas = turno ? 1 : 2;
     try{
-      for(int i = 0; i<dimension; i++){
-        if(verificaDerecha(posX, posY))
-          mundo[posX+i][posY] = aliadas;
+      if(verificaDerecha(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX+i][posY] == aliadas){
+            break;
+          }else{
+            mundo[posX+i][posY] = aliadas;
+
+          }
+        }
       }
     }catch(Exception e){
       System.out.println("asd");
@@ -329,9 +438,86 @@ class Tablero {
   void actualizaIzquierda(int posX, int posY){
     int aliadas = turno ? 1 : 2;
     try{
-      for(int i = 0; i<dimension; i++){
-        if(verificaIzquierda(posX, posY))
-          mundo[posX-i][posY] = aliadas;
+      if(verificaIzquierda(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX-i][posY] == aliadas){
+            break;
+          }else{
+            mundo[posX-i][posY] = aliadas;
+
+          }
+        }
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+  
+    void actualizaIzquierdaArriba(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      if(verificaIzquierdaArriba(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX-i][posY-i] == aliadas){
+            break;
+          }else{
+            mundo[posX-i][posY-i] = aliadas;
+
+          }
+        }
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+    void actualizaIzquierdaAbajo(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      if(verificaIzquierdaAbajo(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX-i][posY+i] == aliadas){
+            break;
+          }else{
+            mundo[posX-i][posY+i] = aliadas;
+
+          }
+        }
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+  
+  
+    void actualizaDerechaArriba(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      if(verificaDerechaArriba(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX+i][posY-i] == aliadas){
+            break;
+          }else{
+            mundo[posX+i][posY-i] = aliadas;
+
+          }
+        }
+      }
+    }catch(Exception e){
+      System.out.println("asd");
+    }
+  }
+    void actualizaDerechaAbajo(int posX, int posY){
+    int aliadas = turno ? 1 : 2;
+    try{
+      if(verificaDerechaAbajo(posX, posY)){
+        for(int i = 1; i < dimension; i++){
+          if(mundo[posX+i][posY+i] == aliadas){
+            break;
+          }else{
+            mundo[posX+i][posY+i] = aliadas;
+
+          }
+        }
       }
     }catch(Exception e){
       System.out.println("asd");
@@ -343,6 +529,10 @@ class Tablero {
       actualizaAbajo(posX, posY);
       actualizaIzquierda(posX, posY);
       actualizaDerecha(posX,posY);
+      actualizaDerechaArriba(posX, posY);
+      actualizaDerechaAbajo(posX, posY);
+      actualizaIzquierdaArriba(posX, posY);
+      actualizaIzquierdaAbajo(posX, posY);
   }
 
   
