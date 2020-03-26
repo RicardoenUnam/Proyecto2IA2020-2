@@ -1,21 +1,28 @@
+
+import java.util.ArrayList;
+
 class Arbol{
   
   Tablero tablero; 
-  Tablero[] hijos;
+  ArrayList<Tablero> hijos; //N hijos
   
   Arbol(Tablero tablero){
     this.tablero = tablero;
-    this.hijos = new Tablero[64]; //64 jugadas posibles
+    this.hijos = new ArrayList<Tablero>(); //64 jugadas posibles
   }
   
-  Arbol[] hijos(){
+  ArrayList<Tablero> hijos(){
      int[][] jugadas = this.tablero.obtenJugadas(); //Obtiene las posiciones de donde se puede colocar una ficha
      
-     for(int i = 0; i < jugadas.length; i++){
+     for(int i = 0; i < jugadas.length; i++){ //Crea los distintos escenarios.
         System.out.println(jugadas[i][0]);
+        System.out.println(jugadas[i][0]);
+        Tablero t = this.tablero;
+        t.setFicha(jugadas[i][0], jugadas[i][1]);
+        this.hijos.add(t);
      }
      
-     return null;
+     return hijos;
   }
   
 }
