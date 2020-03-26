@@ -16,7 +16,8 @@ class Arbol{
      for(int i = 0; i < jugadas.size(); i++){ //Crea los distintos escenarios.
         System.out.println(jugadas.get(i));
         System.out.println(jugadas.get(i));        
-        Tablero t = new Tablero(this.tablero);
+        Tablero t = new Tablero();
+        t = this.tablero.getTablero();
         //t.setFicha(jugadas.get(i)[0], jugadas.get(i)[1]);
         this.hijos.add(t);
      }
