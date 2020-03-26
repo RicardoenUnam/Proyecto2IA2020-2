@@ -64,6 +64,17 @@ class Tablero {
     this(8, 60);
   }
 
+  public Tablero(Tablero tablero){
+    this.setMundo(tablero.getMundo());
+  }
+  
+  public void setMundo(int[][] mundo){
+    this.mundo = mundo;
+  }
+  
+  public int[][] getMundo(){
+    return mundo;
+  }
   /**
    * Dibuja en pantalla el tablero, es decir, dibuja las casillas y las fichas de los jugadores
    */
