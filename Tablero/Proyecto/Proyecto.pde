@@ -36,6 +36,7 @@ void draw() {
  */
 void mousePressed() {
   println("\nClic en la casilla " + "[" + mouseX/tablero.tamCasilla + ", " + mouseY/tablero.tamCasilla + "]");
+
   if (!tablero.estaOcupado(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla) && 
           tablero.movimientoPermitido(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla)) {
     tablero.setFicha(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);

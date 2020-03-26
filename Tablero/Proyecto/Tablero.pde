@@ -43,6 +43,21 @@ class Tablero implements Cloneable {
    * @param dimension Cantidad de casillas del tablero, comúnmente ocho.
    * @param tamCasilla Tamaño en pixeles de cada casilla
    */
+   
+   
+  Tablero(int[][] mundo){
+    this.mundo = mundo;
+  }
+ 
+  
+    public Tablero creaNuevoTablero(int x , int y, int[][] mundo) {
+      Tablero nuevo= new Tablero(x,y); 
+      nuevo.setMundo(mundo);
+      return  nuevo;
+    }
+    
+  
+  
   Tablero(int dimension, int tamCasilla) {
     this.dimension = dimension;
     this.tamCasilla = tamCasilla;
@@ -64,9 +79,15 @@ class Tablero implements Cloneable {
     this(8, 60);
   }
 
+
+
   
   public void setMundo(int[][] mundo){
     this.mundo = mundo;
+  }
+  
+   public int[][] getMundo(){
+    return this.mundo;
   }
   
   Tablero getTablero(){
