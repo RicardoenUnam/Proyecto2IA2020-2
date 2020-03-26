@@ -18,7 +18,7 @@ class Arbol{
         System.out.println(jugadas.get(i));        
         Tablero t = new Tablero();
         t = this.tablero.getTablero();
-        //t.setFicha(jugadas.get(i)[0], jugadas.get(i)[1]);
+        t.setFicha(jugadas.get(i)[0], jugadas.get(i)[1]);
         this.hijos.add(t);
      }
      

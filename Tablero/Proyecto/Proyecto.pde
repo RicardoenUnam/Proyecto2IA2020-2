@@ -40,14 +40,13 @@ void mousePressed() {
           tablero.movimientoPermitido(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla)) {
     tablero.setFicha(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
     tablero.actualiza(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
+    tablero.cambiarTurno();
+
     if(tablero.turno == false){
       arbol = new Arbol(tablero);
       minimax = new Minimax(arbol);
       minimax.mejorJugada();
       tablero.cambiarTurno();          
-    }else{
-      tablero.cambiarTurno();
-    
     }
     println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
          " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");

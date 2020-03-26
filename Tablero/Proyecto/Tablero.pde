@@ -7,7 +7,7 @@
  
 import java.util.ArrayList;
  
-class Tablero {
+class Tablero implements Cloneable {
   /**
    * Cantidad de casillas en horizontal y vertical del tablero
    */
@@ -72,6 +72,7 @@ class Tablero {
   Tablero getTablero(){
     return this;
   }
+
   /**
    * Dibuja en pantalla el tablero, es decir, dibuja las casillas y las fichas de los jugadores
    */
