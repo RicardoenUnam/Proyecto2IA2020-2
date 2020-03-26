@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 class Arbol{
@@ -8,17 +7,17 @@ class Arbol{
   
   Arbol(Tablero tablero){
     this.tablero = tablero;
-    this.hijos = new ArrayList<Tablero>(); //64 jugadas posibles
+    this.hijos = new ArrayList<Tablero>(); // jugadas posibles
   }
   
   ArrayList<Tablero> hijos(){
-     int[][] jugadas = this.tablero.obtenJugadas(); //Obtiene las posiciones de donde se puede colocar una ficha
+     ArrayList<int[]> jugadas = this.tablero.obtenJugadas(); //Obtiene las posiciones de donde se puede colocar una ficha
      
-     for(int i = 0; i < jugadas.length; i++){ //Crea los distintos escenarios.
-        System.out.println(jugadas[i][0]);
-        System.out.println(jugadas[i][0]);
+     for(int i = 0; i < jugadas.size(); i++){ //Crea los distintos escenarios.
+        System.out.println(jugadas.get(i));
+        System.out.println(jugadas.get(i));        
         Tablero t = this.tablero;
-        t.setFicha(jugadas[i][0], jugadas[i][1]);
+        t.setFicha(jugadas.get(i)[0], jugadas.get(i)[1]);
         this.hijos.add(t);
      }
      

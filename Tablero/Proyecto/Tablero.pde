@@ -4,6 +4,9 @@
  * @author Eduardo Lechuga
  * @author Rodrigo Colín
  */
+ 
+import java.util.ArrayList;
+ 
 class Tablero {
   /**
    * Cantidad de casillas en horizontal y vertical del tablero
@@ -149,7 +152,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -175,7 +177,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -201,7 +202,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -222,7 +222,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -243,7 +242,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -269,7 +267,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -291,7 +288,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -312,7 +308,6 @@ class Tablero {
       return false;
     }
     catch(Exception e) {
-      System.out.println("");
       return false;
     }
   }
@@ -549,8 +544,17 @@ class Tablero {
   }
   
   
-  int[][] obtenJugadas(){
-    int[][] jugadas = {{1, 2} , {3, 4}, {5,6}, {7,8}};
+  ArrayList<int[]> obtenJugadas(){
+    
+    ArrayList<int[]> jugadas = new ArrayList<int[]>();
+     for (int i = 0; i<dimension; i++) {
+      for (int j = 0; j<dimension; j++) {
+        if (movimientoPermitido(i, j) && !estaOcupado(i, j)) {
+          int[] t = {i, j};
+          jugadas.add(t);
+        }
+      }
+    }
     return jugadas;
   }
   
