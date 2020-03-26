@@ -52,11 +52,10 @@ class Tablero implements Cloneable {
   
     public Tablero creaNuevoTablero(int x , int y, int[][] mundo) {
       Tablero nuevo= new Tablero(x,y); 
-      nuevo.setMundo(mundo);
       return  nuevo;
     }
     
-  
+
   
   Tablero(int dimension, int tamCasilla) {
     this.dimension = dimension;
@@ -70,6 +69,7 @@ class Tablero implements Cloneable {
     mundo[(dimension/2)-1][(dimension/2)-1] = 2;
     mundo[dimension/2][dimension/2] = 2;
   }
+  
 
   /**
    * Constructor por default de un tablero con las siguientes propiedades:

@@ -42,14 +42,20 @@ void mousePressed() {
     tablero.setFicha(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
     tablero.actualiza(mouseX/tablero.tamCasilla, mouseY/tablero.tamCasilla);
     tablero.cambiarTurno();
-
+    println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
+         " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
     if(tablero.turno == false){
       arbol = new Arbol(tablero);
       minimax = new Minimax(arbol);
-      minimax.mejorJugada();
+      int[] mejorjugada = minimax.mejorJugada();
+      tablero.setFicha(mejorjugada[0],mejorjugada[1]);
+      tablero.actualiza(mejorjugada[0],mejorjugada[1]);
+        println("\nClic en la casilla " + "[" + mejorjugada[0] + ", " + mejorjugada[1] + "]");
+        println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
+         " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
+
       tablero.cambiarTurno();          
     }
-    println("[Turno #" + tablero.numeroDeTurno + "] "  + (tablero.turno ? "jugó ficha blanca" : "jugó ficha negra") +
-         " (Score: " + int(tablero.cantidadFichas().x) + " - " + int(tablero.cantidadFichas().y) + ")");
+
   }
 }

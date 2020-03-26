@@ -17,8 +17,9 @@ class Arbol{
      
      this.hijos.add(this.tablero);
      for(int i = 0; i < jugadas.size(); i++){ //Crea los distintos escenarios.       
-        Tablero t = new Tablero(8,60, this.tablero.getMundo()); // Crea un tablero nuevo
+        Tablero t = new Tablero(8,60); // Crea un tablero nuevo
         t.turno = false;
+                      
         t.setFicha(jugadas.get(i)[0],jugadas.get(i)[1]); //Para ver si ya no modifica al original.
         t.actualiza(jugadas.get(i)[0],jugadas.get(i)[1]); 
                 

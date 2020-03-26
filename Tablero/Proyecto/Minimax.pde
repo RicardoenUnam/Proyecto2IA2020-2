@@ -17,24 +17,31 @@ class Minimax{
   
   int[] mejorJugada(){ //Selecciona la mejor jugada de los escenarios posibles.
     ArrayList<Tablero> jugadas = arbol.hijos();
-    ArrayList<int[]> ganancias = new ArrayList<int[]>();
-    for(int i = 0; i < jugadas.size(); i++){
-        System.out.println();
-        for(int j = 0; j < 8 ; j++){
-          for(int k = 0; k < 8; k++){
-            System.out.print(jugadas.get(i).mundo[j][k]);
-          }
-          System.out.println();
+    ArrayList<Integer> ganancias = new ArrayList<Integer>();
+    
+    ArrayList<int[]> values = jugadas.get(0).obtenJugadas();
+    for(int i = 0; i < jugadas.size(); i++){  
+        
+        if(i >= 1){
+          int ganancia = int(jugadas.get(i).cantidadFichas().y) - int(jugadas.get(0).cantidadFichas().y);
+          int minimax = ganancia*pesos[values.get(i-1)[0]][values.get(i-1)[1]];
+          ganancias.add(minimax);
         }
-        System.out.println(jugadas.get(0).cantidadFichas().x);
-        System.out.println(jugadas.get(0).cantidadFichas().y);
-        System.out.println(jugadas.get(i).cantidadFichas().x);
-        System.out.println(jugadas.get(i).cantidadFichas().y);
         
         
       
     }
+    
+    int indexJugada = 0;
+    int max = 0;
+    for(int i = 0; i < ganancias.size(); i++){
+      if(ganancias.get(i) > max){
+        max = ganancias.get(i);
+        indexJugada = i;
+      }
+    }
+    
     //System.out.println(int(this.arbol.tablero.cantidadFichas().y));
-    return null;
+    return values.get(indexJugada);
   }
 }
