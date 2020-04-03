@@ -573,9 +573,10 @@ class Tablero implements Cloneable {
     return contador;
   }
   
-  
+  /*
+   *Metodo para saber las jugadas disponibles para el usuario
+  */
   ArrayList<int[]> obtenJugadas(){
-    
     ArrayList<int[]> jugadas = new ArrayList<int[]>();
      for (int i = 0; i<dimension; i++) {
       for (int j = 0; j<dimension; j++) {
@@ -588,5 +589,30 @@ class Tablero implements Cloneable {
     return jugadas;
   }
   
+  /*
+   * Metodo que indica que el juego se termino
+   */
+  boolean juegoTerminado(){
+    if(this.obtenJugadas().isEmpty()){
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * Nos indica el ganador del juego
+   */
+  int ganador(){
+    int negras = (int)this.cantidadFichas().x;
+    int blancas = (int)this.cantidadFichas().y;
+    if(this.juegoTerminado()){
+      if (negras > blancas)
+        return 1; //Si ganan negras
+      if (negras < blancas)
+        return 2; //Si ganan blancas
+      return 0; //Si quedan empatadas
+    }
+    return 3;
+  }
   
 }
