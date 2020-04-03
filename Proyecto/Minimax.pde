@@ -25,7 +25,7 @@ class Minimax{
         
         if(i >= 1){
           int ganancia = int(jugadas.get(i).cantidadFichas().y) - int(jugadas.get(0).cantidadFichas().y);
-          int minimax = ganancia*pesos[values.get(i-1)[0]][values.get(i-1)[1]];
+          int minimax = ganancia;
           //int minimax = ganancia*pesos[values.get(i-1)[0]][values.get(i-1)[1]];
           ganancias.add(minimax);
         }
@@ -46,7 +46,7 @@ class Minimax{
         
         if(i >= 1){
           int ganancia = int(jugadas.get(i).cantidadFichas().y) - int(jugadas.get(0).cantidadFichas().y);
-          int minimax = ganancia*pesos[values.get(i-1)[0]][values.get(i-1)[1]];
+          int minimax = ganancia;
           ganancias.add(minimax);
         }
         
@@ -54,17 +54,35 @@ class Minimax{
       
     }
     
-    int indexJugada = 0;
-    int max = 0;
+    ArrayList<Integer> gananciashijos = new ArrayList<Integer>();
+    
+    for(int i = 1; i < jugadas.size(); i++){
+      Arbol a = new Arbol(jugadas.get(i));
+      minimax = new Minimax(a);
+      gananciashijos.add(obtenMaximo(minimax.Ganancias())); 
+      
+    
+    }
+    
+    System.out.println(ganancias.size());
+    System.out.println(gananciashijos.size());
+    ArrayList<Integer> maxmin = new ArrayList<Integer>();
     for(int i = 0; i < ganancias.size(); i++){
-      if(ganancias.get(i) > max){
-        max = ganancias.get(i);
+      maxmin.add(ganancias.get(i) - gananciashijos.get(i));
+    }
+    
+    
+    
+    int indexJugada = 0;
+    int min = maxmin.get(0);
+    for(int i = 0; i < maxmin.size(); i++){
+      if(maxmin.get(i) < min){
+        min = maxmin.get(i);
         indexJugada = i;
       }
     }
     
-    System.out.println(int(this.arbol.tablero.cantidadFichas().x));
-    return values.get(indexJugada);                
+    return values.get(indexJugada);               
   }
   
   
@@ -77,7 +95,7 @@ class Minimax{
         
         if(i >= 1){
           int ganancia = int(jugadas.get(i).cantidadFichas().y) - int(jugadas.get(0).cantidadFichas().y);
-          int minimax = ganancia*pesos[values.get(i-1)[0]][values.get(i-1)[1]];
+          int minimax = ganancia;
           ganancias.add(minimax);
         }
         
@@ -128,6 +146,7 @@ class Minimax{
     
     return max;
   }
+  
   
   
 }

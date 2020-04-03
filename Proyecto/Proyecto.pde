@@ -159,7 +159,7 @@ void jugar(){
     if(tablero.turno == false){
       arbol = new Arbol(tablero);
       minimax = new Minimax(arbol);
-      int[] mejorjugada = minimax.mejorJugada2();
+      int[] mejorjugada = minimax.mejorJugada();
       tablero.setFicha(mejorjugada[0],mejorjugada[1]);
       tablero.actualiza(mejorjugada[0],mejorjugada[1]);
       println("\nClic en la casilla " + "[" + mejorjugada[0] + ", " + mejorjugada[1] + "]");
